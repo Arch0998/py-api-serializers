@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+import rest_framework.serializers as drf_serializers
 
 from cinema.models import (
     CinemaHall,
@@ -39,7 +40,7 @@ class MovieViewSet(viewsets.ModelViewSet):
     queryset = Movie.objects.prefetch_related("genres", "actors")
     serializer_class = MovieSerializer
 
-    def get_serializer_class(self):
+    def get_serializer_class(self) -> type[drf_serializers.Serializer]:
         if self.action == "retrieve":
             return MovieDetailSerializer
         if self.action == "list":
@@ -54,7 +55,7 @@ class MovieSessionViewSet(viewsets.ModelViewSet):
     )
     serializer_class = MovieSessionSerializer
 
-    def get_serializer_class(self):
+    def get_serializer_class(self) -> type[drf_serializers.Serializer]:
         if self.action == "retrieve":
             return MovieSessionDetailSerializer
         if self.action == "list":
